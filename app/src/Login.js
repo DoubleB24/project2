@@ -1,4 +1,4 @@
-// import { auto } from '@popperjs/core';
+ // import { auto } from '@popperjs/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useState } from 'react';
