@@ -12,6 +12,7 @@ export default function Admin (){
                         <Adminnav/>
                     </div>
                     <div className="col-lg-10 content" style={{background : "#223322"}}>
+                        <h1>hi</h1>
                         <Users/>
                     </div>
                 </div>

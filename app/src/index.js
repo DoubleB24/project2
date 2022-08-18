@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import TestState from './TestState';
 import Login from './Login';
+import Users from './component/admin/Users';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 import Home from './Home';
@@ -14,6 +15,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="home" element={<Home />} />
+      <Route path="user" element={<Users/>} />
     </Routes> 
   </BrowserRouter>
 

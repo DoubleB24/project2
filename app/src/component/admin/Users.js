@@ -20,6 +20,7 @@ export default function User(){
             let json = await response.json();
             setUsers(json.data);
         }
+        fetchData();
     },[]);
     return(
         <>
