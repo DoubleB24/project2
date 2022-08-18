@@ -7,7 +7,7 @@ export default function User(){
     useEffect( () => {
         async function fetchData(){
             const response = await fetch(
-                "http://localhost:8000/api/users",
+                "http://localhost:8080/api/Users",
                 {
                     method: "GET",
                     headers:{
@@ -26,14 +26,14 @@ export default function User(){
         <>
             <div>
                 {
-                    users.map(item =>{
-                       <div>
+                    users.map(item =>(
+                       <div key={item.user_id}>
                              <h1>{item.user_id}</h1>
                              <h1>{item.user_name}</h1>
-                             <h1>{item.user_password}</h1>
+                             <h1>{item.user_pwd}</h1>
                              <h1>{item.role_id}</h1>
                        </div>
-                    })
+                    ))
 
                 }
             </div>

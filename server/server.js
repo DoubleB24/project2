@@ -11,12 +11,15 @@ const bodyParser = require('body-parser');
 
 const cors = require("cors");
 
+const users = require('./libs/users');
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.use('/images', express.static('images'));
 
 var mysql = require('mysql');
+const { response } = require('express');
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: "localhost",
@@ -147,8 +150,8 @@ app.post("/login", (req, res) =>{
 
 });
 
-app.get('/api/users',(req,res) => {
-    pool.query("SELECT * FROM user",function(error,result,fields){
+app.get('/api/Users',(req,res) => {
+    pool.query("SELECT * FROM users",function(error,result,fields){
         if(error){
             res.json({
                 result: false,
@@ -170,6 +173,78 @@ app.get('/api/users',(req,res) => {
     });
 });
 
+app.post('/api/users/add', checkAuth,async(req,res) =>{
+    const input = req.body;
+
+    try{
+        var result = await users.createuser(pool,input.user_name,input.user_pwd,input.role_id);
+        res.json({
+            result : true
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
+});
+
+app.post('/api/users/update', checkAuth,async(req,res) =>{
+    const input = req.body;
+
+    try{
+        var result = await users.updateuser(pool,input.user_id,input.user_name,input.user_pwd,input.role_id);
+        res.json({
+            result : true
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
+});
+
+
+app.post('/api/users/delete', checkAuth,async(req,res) =>{
+    const input = req.body;
+
+    try{
+        var result = await users.deleteuser(pool,input.user_id);
+        res.json({
+            result : true
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
+});
+
+app.get('/api/user/:user_id',async(req,res) =>{
+    const userid = req.params.user_id;
+
+    try{
+        var result = await users.getByUserId(pool,userid);
+        res.json({
+            result : true,
+            data: result
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+});
 
 
 app.listen(port, () => {
