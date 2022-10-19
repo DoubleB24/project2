@@ -1,22 +1,27 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "../admin/admin.css"
+import { Link } from 'react-router-dom';
+import "../admin/admin.css";
 import Adminnav from './Adminnav';
-import User from './Users';
+import Users from './Users';
 
-export default function Admin (){
+
+export default function Admin(){
+    let pages = 1;
+
     return(
         <>
-            <div className='container-fluid'>
+            <div className='container-fluid  '>
                 <div className='row'>
-                    <div className="col-lg-2 content" style={{padding:"0"}}>
-                        <Adminnav/>
+                    <div className="col-lg-2 p-0  sidebar" >
+                        <Adminnav pages={pages}/>
                     </div>
-                    <div className="col-lg-10 content" style={{background : "#223322"}}>
-                        <h1>hi</h1>
-                        <Users/>
+                    
+                    <div className="col-lg-10 p-0 title "><br></br>
+                           <Users/>
+                        
                     </div>
                 </div>
             </div>
         </>
     )
 }
+
