@@ -5,6 +5,7 @@ import Employeenav from './Employeenav';
 import OrderList from './OrderList';
 import ProductList from './ProductList';
 import { Table } from 'react-bootstrap';
+import { Button } from "react-bootstrap";
 
 
 
@@ -49,6 +50,9 @@ export default function Orderemp() {
                         <div className="me"><br></br>
                             <Link to={"/"} className="btn btn exit ms-3">{<i className="fa-solid fa-plus me-2"></i>}ยกเลิกรายการทั้งหมด</Link><br></br>
                             <Link to={"/"} className="btn btn-success mt-5 ms-3">{<i className="fa-solid fa-plus me-2"></i>}สั่งซื้อสินค้า</Link>
+
+                            <Button className=" me-2" variant="success" >ยกเลิกรายการทั้งหมด</Button>
+                            <Button className=" me-2" variant="success" >สั่งซื้อสินค้า</Button>
                         </div>
                     </div>
 

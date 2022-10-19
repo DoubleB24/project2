@@ -12,6 +12,7 @@ const users = require('./libs/users');
 const Product = require('./libs/Product');
 // const FormProductType = require()
 const ProductType = require('./libs/ProductType');
+const Order = require('./libs/Order');
 
 
 app.use(cors());
@@ -21,6 +22,7 @@ app.use('/images', express.static('images'));
 
 var mysql = require('mysql');
 const { response } = require('express');
+
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: "localhost",
@@ -609,6 +611,53 @@ app.get("/api/report", async (req,res) =>{
 });
 
 ///////////////Employee
+
+app.post('/api/order/createorder',async(req,res) =>{
+    const input = req.body;
+    console.log(input)
+    try{
+        var result = await Order.createOrder(pool,
+            input.user_id,
+            input.total);
+        res.json({
+            result : true,
+            order_id: result.insertId
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
+});
+
+
+
+
+
+app.post('/api/order/createItem',async(req,res) =>{
+    const input = req.body;
+    console.log(input)
+    try{
+        var result = await Order.createOrderItem(pool,
+            input.product_id,
+            input.amount,
+            input.total,
+            input.order_id);
+        res.json({
+            result : true
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
+});
 
 
 

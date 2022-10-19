@@ -16,7 +16,7 @@ export default function OrderListItem(props) {
     }
 
     function decrementCount() {
-        if (count=0){
+        if (count!=0){
              setCount(count -1);
         }
     }
