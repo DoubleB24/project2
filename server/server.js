@@ -618,6 +618,7 @@ app.post('/api/order/createorder',async(req,res) =>{
     try{
         var result = await Order.createOrder(pool,
             input.user_id,
+            input.amount,
             input.total);
         res.json({
             result : true,
@@ -643,6 +644,7 @@ app.post('/api/order/createItem',async(req,res) =>{
     try{
         var result = await Order.createOrderItem(pool,
             input.product_id,
+            input.price,
             input.amount,
             input.total,
             input.order_id);
@@ -658,6 +660,54 @@ app.post('/api/order/createItem',async(req,res) =>{
     }
 
 });
+
+app.get('/api/order/maxorderid',(req,res) => {
+    pool.query("SELECT MAX(order_id) as order_id  FROM orders",function(err,results,fields){
+        if(err){
+            res.json({
+                result: false,
+                message: err.message
+            });
+        }
+
+        if(results.length){
+            res.json({
+                result:true,
+                data: results
+            });
+        }else{
+            res.json({
+                result: false,
+                message: "ไม่พบorder_id"
+            });
+        }
+    });
+});
+
+app.get('/api/order/getorder',(req,res) => {
+    pool.query("SELECT * FROM orders",function(err,results,fields){
+        if(err){
+            res.json({
+                result: false,
+                message: err.message
+            });
+        }
+
+        if(results.length){
+            res.json({
+                result:true,
+                data: results
+            });
+        }else{
+            res.json({
+                result: false,
+                message: "ไม่พบorder_id"
+            });
+        }
+    });
+});
+
+
 
 
 

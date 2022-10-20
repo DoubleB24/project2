@@ -6,8 +6,7 @@ import { Button } from "react-bootstrap";
 export default function OrderListItem(props) {
 
     const [count,setCount] = useState(0);
-    const [calAmount,setCalamount] = useState(0);
-    const [calnet,setCalnet] = useState(0);
+    
     let amount = 0;
     let net = 0;
 
@@ -52,12 +51,26 @@ export default function OrderListItem(props) {
             amount: basketcount,
             total:sum
     
-            
-    
         }
+        // console.log("aaaaa "+amount);
+
         data.push(json);
+
+
+        net = props.calnet+ sum;
+        props.setCalnet(net); 
+       
+
+        amount = props.calAmount + basketcount;
+        props.setCalamount(amount);
+
+        // console.log("bbbb "+amount);
+
         localStorage.setItem('basket', JSON.stringify(data));
+        localStorage.setItem('calNet', net);
+        localStorage.setItem('calAmount', amount);
         console.log(localStorage.getItem('basket'));
+
         props.setList(data);
         props.fetchproduct();
        

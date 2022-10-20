@@ -58,12 +58,26 @@
     background-color: rgb(95, 96, 96);
 }
 
+.frame4 {
+    background-color: rgb(95, 96, 96);
+    width: 150vh;
+    height: 6vh;
+
+}
+
+.frame5 {
+    background-color: rgb(95, 96, 96);
+    width: 75vh;
+    height: 6vh;
+
+}
+
 .me {
     margin-left: 80%;
 }
 
 .r {
-    margin-left: 89%;
+    margin-left: 85%;
 }
 
 .active {
@@ -117,7 +131,7 @@ a {
     background-color: rgb(249, 249, 249);
     margin:auto;
     width: 160vh;
-    height: 50vh;
+    height: 55vh;
 }
 
 .cter {
@@ -140,3 +154,41 @@ a {
 
 }
 
+.f4 {
+    background-color: rgb(249, 249, 249);
+    margin:auto;
+    width: 150vh;
+    height: 25vh;
+}
+
+.f5 {
+    background-color: rgb(249, 249, 249);
+    margin-left: 8%;
+    width: 75vh;
+    height: 25vh;
+}
+
+.buton{
+    margin-top: 3%;
+    
+}
+
+.form-text{
+    resize: none;
+    width: 100%;
+    height: 60%;
+}
+
+.text-tr{
+   margin: auto;
+}
+
+.pix{
+    margin-right: 60%;
+    width: 120px;
+    height: 120px;
+}
+
+.text-bank{
+    margin-left: 20%;
+}

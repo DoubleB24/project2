@@ -13,47 +13,56 @@ export default function ProductList() {
     const [product_type_id, setProductTypeId] = useState(0);
     const [list, setList] = useState([]);
 
+    const [calAmount,setCalamount] = useState(0);
+    const [calnet,setCalnet] = useState(0);
+
 
     useEffect(() => {
         fetchproduct();
-        
+
+        // let IntAmount = parseInt(localStorage.getItem('calAmount'));
+        // let IntNet = parseInt(localStorage.getItem('calNet'));
+
+        setCalamount(localStorage.getItem('calAmount'));
+        setCalnet(localStorage.getItem('calNet'));
+
     }, []);
 
 
-    const fetchproduct =async () =>{
-        
-          
-            let json = await API_GET("productTypeowner")
-
-            let products = json.data;
+    const fetchproduct = async () => {
 
 
+        let json = await API_GET("productTypeowner")
 
-            if (json.result) {
-                let basket = JSON.parse(localStorage.getItem('basket'));
+        let products = json.data;
 
-                    if (basket != null) {
-                        setList(basket);
-                        products.map(item => {
-                            basket.map(basket => {
-                                if (item.product_id === basket.product_id) {
-                                    console.log("2")
-                                    item.stock = item.stock - basket.amount
-                                    console.log(item)
-                                    console.log(basket)
-            
-                                }
-                            })
-                        })
-                    }
-                   
 
-                setProductTypes(products);
+
+        if (json.result) {
+            let basket = JSON.parse(localStorage.getItem('basket'));
+
+            if (basket != null) {
+                setList(basket);
+                products.map(item => {
+                    basket.map(basket => {
+                        if (item.product_id === basket.product_id) {
+                            console.log("2")
+                            item.stock = item.stock - basket.amount
+                            console.log(item)
+                            console.log(basket)
+
+                        }
+                    })
+                })
             }
-            console.log(products)
 
-    
-        
+
+            setProductTypes(products);
+        }
+        console.log(products)
+
+
+
     }
 
 
@@ -96,8 +105,12 @@ export default function ProductList() {
                                         data={item}
                                         list={list}
                                         setList={setList}
+                                        setCalamount={setCalamount}
+                                        calAmount={calAmount}
                                         fetchproduct={fetchproduct}
-                                         />
+                                        setCalnet={setCalnet}
+                                        calnet={calnet}
+                                    />
                                 ))
                             }
                         </tbody>
@@ -135,18 +148,25 @@ export default function ProductList() {
                         {
                             list != null &&
                             list.map(item => (
-                                
-                                    <tr key={item.product_id} >
-                                        <td>{item.product_id}</td>
-                                        <td>{item.product_name}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.amount}</td>
-                                        <td>{item.total}</td>
-                                    </tr>
-                                
+
+                                <tr key={item.product_id} >
+                                    <td>{item.product_id}</td>
+                                    <td>{item.product_name}</td>
+                                    <td>{item.price}</td>
+                                    <td>{item.amount}</td>
+                                    <td>{item.total}</td>
+                                </tr>
+
                             ))
                         }
+
+                        <tr>
+                            <td colSpan={3}>รวม</td>
+                            <td>{calAmount}</td>
+                            <td>{calnet}</td>
+                        </tr>
                     </tbody>
+
                 </Table>
 
             </div>

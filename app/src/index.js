@@ -13,6 +13,7 @@ import Report from './component/owner/Report';
 
 // import ProductForm from './component/admin/FormUsers';
 import FormUsers from './component/admin/FormUsers';
+import FormOrderList from './component/employee/FormOrderList';
 import Employee from './component/employee/Employee';
 import Product from './component/admin/Product';
 import Orderemp from './component/employee/Orderemp';
@@ -39,6 +40,7 @@ root.render(
       <Route path="/Owner" element={<Owner/>}/>
       <Route path="/report" element={<Report/>}/>
       <Route path="/formUsers/:user_id" element={<FormUsers />} />
+      <Route path="/FormOrderList" element={<FormOrderList/>}/>
       <Route path="/Employee" element={<Employee />} />
       <Route path="/Orderemp" element={<Orderemp/>} />
       <Route path="/History" element={<History/>} />

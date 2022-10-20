@@ -14,6 +14,14 @@ export default function OrderList() {
     const [list,setList] = useState([]);
     const [showselectProduct,setShowselectProduct] = useState(false);
     const [showselectbasket,setShowselectBasket] = useState(false);
+
+    const [user_id,setUserid] = useState(0);
+    const [total,setTotal] = useState([]);
+    
+    const [product_id,setProductId] = useState(0);
+    const [amount,setAmount] = useState([]);
+    const [order_id,setOrderId] = useState(0);
+
     // const [amountproduct,setAmountproduct] = useState(0);
     // const [net,setNet] = useState(0);
 
@@ -48,7 +56,7 @@ export default function OrderList() {
 
     return (
         <>
-
+{/* 
             <div className='row mt-1 '>
                 <div className='col text-center'>
                     <Table striped>
@@ -78,12 +86,14 @@ export default function OrderList() {
                                     </>
                                 ))
                             }
+                                
                         </tbody>
+
                        
 
                     </Table>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
