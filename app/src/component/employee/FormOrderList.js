@@ -1,9 +1,9 @@
 import { Table } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import Employeenav from "./Employeenav"
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-import{Form,Row, Col ,Button} from 'react-bootstrap';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import { ConfirmOder } from "./ModalsEmp";
 import { API_GET, API_POST } from "../../api";
 
@@ -13,28 +13,30 @@ export default function FormOrderList() {
     let navigate = useNavigate();
 
 
-    const [listbasket,setListbasket] = useState([]);
-    const [net,setNet] = useState(0);
+    const [listbasket, setListbasket] = useState([]);
+    const [net, setNet] = useState(0);
 
     //ConfirmModal
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const [modalConfirmTitle, setModalConfirmTitle] = useState("");
     const [modalConfirmMessage, setModalConfirmMessage] = useState("");
 
-    const [user_id,setUser_id] = useState(0);
-    const [amount,setAmount] = useState(0);
-    const [order_id,setOrder_id] = useState(0);
+    const [user_id, setUser_id] = useState(0);
+    const [amount, setAmount] = useState(0);
+    const [order_id, setOrder_id] = useState(0);
+
+
 
     let IntNet = 0;
-    let IntAmount =0;
+    let IntAmount = 0;
     let Order = 0;
 
 
     useEffect(() => {
-        async function fetchData(){
-            
-            IntNet=parseInt(localStorage.getItem("calNet"));
-            IntAmount=parseInt(localStorage.getItem("calAmount"));
+        async function fetchData() {
+
+            IntNet = parseInt(localStorage.getItem("calNet"));
+            IntAmount = parseInt(localStorage.getItem("calAmount"));
 
             setListbasket(JSON.parse(localStorage.getItem('basket')));
             setNet(IntNet);
@@ -43,13 +45,14 @@ export default function FormOrderList() {
             console.log(localStorage.getItem('user_id'));
             setUser_id(user);
 
+
         }
         fetchData();
-    
+
     }, []);
 
-    
-    const onconfirmorder =async() =>{
+
+    const onconfirmorder = async () => {
         onsaveOrder();
         localStorage.removeItem('basket');
         localStorage.removeItem('calAmount');
@@ -60,37 +63,45 @@ export default function FormOrderList() {
 
     }
 
-    const onHide =() =>{
+    const onHide = () => {
         setShowConfirmModal(false);
         navigate(`../Orderemp`, { replace: true });
     }
 
-    const onsaveOrder = async () =>{
-        let json = await API_POST("order/createorder",{
+    const onsaveOrder = async () => {
+        let json = await API_POST("order/createorder", {
             user_id: user_id,
             amount: amount,
-            total:net+100
+            total: net + 100
         });
-        if (json.result){
+        if (json.result) {
             let res = await API_GET("order/maxorderid");
             Order = res.data[0].order_id;
             // setOrder_id(order);
             // console.log(order_id);
             console.log(Order);
-            if(res.result){
-                listbasket.map(async (item) =>{
-                    
-                        let result = await API_POST("order/createItem",{
-                            product_id: item.product_id,
-                            price: item.price,
-                            amount: item.amount,
-                            total: item.total,
-                            order_id:Order
-                        });
-                    
-                    
+            if (res.result) {
+                listbasket.map(async (item) => {
+
+                    let result = await API_POST("order/createItem", {
+                        product_id: item.product_id,
+                        price: item.price,
+                        amount: item.amount,
+                        total: item.total,
+                        order_id: Order
                     });
-                
+
+                    if (result.result) {
+                        let result = await API_POST("order/decreasorder", {
+                            amount: item.amount,
+                            product_id: item.product_id
+
+                        });
+                    }
+
+
+                });
+
             }
 
         }
@@ -143,7 +154,7 @@ export default function FormOrderList() {
                                                     <td>{item.amount}</td>
                                                     <td>{item.total}</td>
                                                 </tr>
-                
+
                                             ))
                                         }
 
@@ -156,7 +167,7 @@ export default function FormOrderList() {
 
                                     <h5 className="frame4 text-white">ที่อยู่การจัดส่ง</h5>
                                     <Form.Control className="form-text my-3"
-                                     as="textarea"/>
+                                        as="textarea" />
                                 </div>
                             </div>
 
@@ -164,37 +175,40 @@ export default function FormOrderList() {
                                 <div className="col-5 ">
                                     <div className='mt-3  f5 text-center'>
                                         <h5 className="frame5 text-white">ช่องทางการชำระเงิน</h5>
-                    
+                                        <div className="row p-2">
+                                            <div className="col-5 text-end">
                                                 <img src={`http://localhost:8080/images/krungthai.jpg`} alt="" className="pix" />
-                                            
-
-                                            <div className="text-bank">
-                                                <h4>ธนาคารกรุง</h4>
-                                                <h4>เลขที่บัญชี 9300317156</h4>
-                                                <h4>ชื่อบัญชี ศศินา  วรเดช</h4>
                                             </div>
+
+
+                                            <div className="col-7 text-center">
+                                                <h6>ธนาคารกรุงไทย</h6>
+                                                <h6>เลขที่บัญชี 9300317156</h6>
+                                                <h6>ชื่อบัญชี ศศินา  วรเดช</h6>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="ms-5 col-6 ">
-                                    <div className='mt-3  f5 text-center'>
-                                        <h5 className="frame5 text-white">สรุปรายการ</h5>
-                                        
+                                    <div className='mt-3 f5 '>
+                                        <h5 className="frame5 text-white text-center">สรุปรายการ</h5>
+                                        <div className="row">
+                                            <p className="col-8 text-end">ยอดรวมทั้งหมด  :</p>
+                                            <p className="col-4">{net}</p>
+                                        </div>
 
-                                    <tr className="">
-                                         <td><p>ยอดรวมทั้งหมด  :</p></td>
-                                         <td>{net}</td>
-                                    </tr>
+                                        <div className="row">
+                                            <p className="col-8 text-end">ค่าจัดส่ง  :</p>
+                                            <p className="col-4">100</p>
+                                        </div>
 
-                                    <tr>
-                                         <td><p>ค่าจัดส่ง  :</p></td>
-                                         <td><p>100</p></td>
-                                    </tr>
+                                        <div className="row ">
+                                            <p className="col-8 text-end">ราคารวมสินค้าทั้งหมด  :</p>
+                                            <p className="col-4">{net + 100}</p>
+                                        </div>
 
-                                    <tr>
-                                         <td><p>ราคารวมสินค้าทั้งหมด  :</p></td>
-                                         <td><p>{net+100}</p></td>
-                                    </tr>
+
 
                                     </div>
                                 </div>
@@ -205,20 +219,20 @@ export default function FormOrderList() {
                         </div>
 
                         <div className="text-center ">
-                            <Button variant="success"className="col-12 my-5" size="lg" onClick={onconfirmorder}>ชำระเงิน</Button>
+                            <Button variant="success" className="col-12 my-5" size="lg" onClick={onconfirmorder}>ชำระเงิน</Button>
                         </div>
                         <ConfirmOder
                             show={showConfirmModal}
                             title={modalConfirmTitle}
                             message={modalConfirmMessage}
-                            onHide={onHide}/>
-                           
+                            onHide={onHide} />
+
                     </div>
 
 
                 </div>
 
-                
+
             </div>
 
         </>

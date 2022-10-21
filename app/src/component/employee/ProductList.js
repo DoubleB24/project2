@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import { API_GET, API_POST } from "../../api";
 import OrderListItem from "./OrderListItem";
 
@@ -13,18 +14,28 @@ export default function ProductList() {
     const [product_type_id, setProductTypeId] = useState(0);
     const [list, setList] = useState([]);
 
-    const [calAmount,setCalamount] = useState(0);
-    const [calnet,setCalnet] = useState(0);
+    const [calAmount, setCalamount] = useState(0);
+    const [calnet, setCalnet] = useState(0);
+
+    let IntAmount = 0;
+    let IntNet = 0;
 
 
     useEffect(() => {
         fetchproduct();
 
-        // let IntAmount = parseInt(localStorage.getItem('calAmount'));
-        // let IntNet = parseInt(localStorage.getItem('calNet'));
+        IntAmount = typeof (parseInt(localStorage.getItem('calAmount')));
+        console.log(IntAmount);
+        IntNet = parseInt(localStorage.getItem('calNet'));
+
+        // console.log(IntAmount);
+        // console.log(parseInt(localStorage.getItem('calNet')));
 
         setCalamount(localStorage.getItem('calAmount'));
         setCalnet(localStorage.getItem('calNet'));
+
+        console.log("aaa " + calnet);
+
 
     }, []);
 
@@ -62,6 +73,14 @@ export default function ProductList() {
         console.log(products)
 
 
+
+    }
+
+    const onCancel = async() =>{
+        localStorage.removeItem('basket');
+        localStorage.removeItem('calAmount');
+        localStorage.removeItem('calNet');
+        window.location.reload(false);
 
     }
 
@@ -158,17 +177,28 @@ export default function ProductList() {
                                 </tr>
 
                             ))
-                        }
 
+                        }
                         <tr>
                             <td colSpan={3}>รวม</td>
                             <td>{calAmount}</td>
-                            <td>{calnet}</td>
+                            <td> {calnet}</td>
                         </tr>
+
+
+
                     </tbody>
 
                 </Table>
 
+
+
+            </div>
+
+            <div className=" row-2 col-2 me"><br></br>
+
+                <Button className=" me-2 " variant="btn btn-danger" onClick={onCancel}>ยกเลิกรายการทั้งหมด</Button>
+                <Button disabled={list.length < 1} href="FormOrderList" className=" me-2 mt-3 ms-3" variant="btn btn-success">สั่งซื้อสินค้า</Button>
             </div>
         </>
     )

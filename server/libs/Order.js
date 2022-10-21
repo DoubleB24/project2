@@ -9,9 +9,9 @@ module.exports = {
         return await pool.query(sql);
     },
 
-    createOrderItem: async(pool, product_id,amount,price,total,order_id) =>{
-        var sql = "INSERT INTO orderitem (product_id,amount,price,total,order_id) VALUES(?,?,?,?,?)";
-        sql = mysql.format(sql,[product_id,amount,price,total,order_id]);
+    createOrderItem: async(pool, product_id,price,amount,total,order_id) =>{
+        var sql = "INSERT INTO orderitem (product_id,price,amount,total,order_id) VALUES(?,?,?,?,?)";
+        sql = mysql.format(sql,[product_id,price,amount,total,order_id]);
         return await pool.query(sql);
     }
 

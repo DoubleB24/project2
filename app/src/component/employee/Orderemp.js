@@ -15,7 +15,7 @@ export default function Orderemp() {
     let params = useParams();
     let navigate = useNavigate();
 
-    
+
 
     return (
         <>
@@ -42,13 +42,11 @@ export default function Orderemp() {
                                 <ProductList />
                             </div>
 
-                            <div className=" row-2 col-2 me"><br></br>
-
-                                
+                            {/* <div className=" row-2 col-2 me"><br></br>
 
                                 <Button className=" me-2 " variant="btn btn-danger">ยกเลิกรายการทั้งหมด</Button>
                                 <Button href="FormOrderList" className=" me-2 mt-3 ms-3" variant="btn btn-success">สั่งซื้อสินค้า</Button> 
-                            </div>
+                            </div> */}
 
                         </div>
 

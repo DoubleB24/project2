@@ -56,8 +56,10 @@ export default function OrderListItem(props) {
 
         data.push(json);
 
-
+        // console.log(typeof(parseInt(props.calnet)));
         net = props.calnet+ sum;
+        console.log(typeof(net));
+        console.log(props.calnet);
         props.setCalnet(net); 
        
 

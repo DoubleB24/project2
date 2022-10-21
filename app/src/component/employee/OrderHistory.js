@@ -7,10 +7,12 @@ import OrderListItem from "./OrderListItem";
 
 export default function OrderHistory() {
     const [listhistory, setListhistory] = useState([]);
+    // const [user_id,setUserId] = useState(0);
 
     useEffect(() =>{
+        // setUserId(localStorage.getItem('user_id'));
         async function fetchData(){
-            let json = await API_GET("order/getorder");
+            let json = await API_GET("order/getorder/"+localStorage.getItem('user_id'));
             setListhistory(json.data);
             console.log(json);
         }

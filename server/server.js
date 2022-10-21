@@ -684,27 +684,44 @@ app.get('/api/order/maxorderid',(req,res) => {
     });
 });
 
-app.get('/api/order/getorder',(req,res) => {
-    pool.query("SELECT * FROM orders",function(err,results,fields){
-        if(err){
+app.get('/api/order/getorder/:user_id',(req,res) => {
+    console.log(req.params.user_id);
+    pool.query("SELECT * FROM orders WHERE user_id=?", [req.params.user_id], function(error, results, fields){
+        if (error) {
             res.json({
                 result: false,
-                message: err.message
-            });
-        }
-
-        if(results.length){
-            res.json({
-                result:true,
-                data: results
+                message: error.message
             });
         }else{
             res.json({
-                result: false,
-                message: "ไม่พบorder_id"
+                result: true,
+                data: results
             });
         }
+
+        
     });
+});
+
+
+app.post('/api/order/decreasorder',async(req,res) =>{
+    const input = req.body;
+    console.log(input)
+    try{
+        var result = await Product.decresoder(pool,
+            input.amount,
+            input.product_id);
+        res.json({
+            result : true
+        });
+
+    }catch(ex){
+        res.json({
+            result: false,
+            message: ex.message
+        });
+    }
+
 });
 
 

@@ -53,4 +53,11 @@ module.exports = {
         return false;
     },
 
+    decresoder: async (pool,amount,product_id) =>{
+        var sql = "UPDATE products SET stock = stock-? WHERE product_id = ?";
+        sql = mysql.format(sql, [amount,product_id]);
+        return await pool.query(sql);
+
+    }
+
 }
