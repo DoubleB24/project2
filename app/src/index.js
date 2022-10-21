@@ -21,7 +21,6 @@ import ProductOwner from './component/owner/ProductOwner';
 import FormProductType from './component/admin/FormProductType';
 import FormOwnerProduct from './component/owner/FormOwnerProduct';
 import OrderHistory from './component/employee/OrderHistory';
-import PaymentEmp from './component/employee/PaymentEmp';
 import Franchise from './component/owner/Franchise';
 import OwnerorderHistory from './component/owner/OwnerorderHistory';
 import Order from './component/owner/Order';
@@ -45,7 +44,6 @@ root.render(
       <Route path="/Orderemp" element={<Orderemp/>} />
       <Route path="/History" element={<History/>} />
       <Route path="/OrderHistory" element={<OrderHistory/>} />
-      <Route path="/PaymentEmp" element={<PaymentEmp/>} />
       <Route path="/Franchise" element={<Franchise/>} />
       <Route path="/OwnerorderHistory" element={<OwnerorderHistory/>} />
       <Route path="/Order" element={<Order/>} />

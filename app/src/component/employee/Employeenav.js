@@ -21,8 +21,7 @@ export default function Employeenav(props){
                                 <Link className={pages === 2 && "active"} to ="/Orderemp" >สั่งซื้อสินค้า</Link>
                            
                                 <Link className={pages === 3 && "active"} to ="/History" >ประวัติคำสั่งซื้อ</Link>
-                        
-                                <Link className={pages === 4 && "active"} to ="/PaymentEmp" >ยอดชำระรายเดือน</Link>
+                    
                             </div>
 
                             <div className=" exit position-absolute bottom-0 end-0 start-0 "> 

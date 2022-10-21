@@ -133,11 +133,6 @@ export default function ProductList() {
                                 ))
                             }
                         </tbody>
-
-
-
-
-
                     </Table>
 
                 </div>

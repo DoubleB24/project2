@@ -45,8 +45,31 @@
     background-color: #fb7979;
 }
 
-.frame1{
+
+.frame1 {
     background-color: rgb(135, 195, 223);
+}
+
+.frame2 {
+    background-color: rgb(82, 197, 162);
+}
+
+.frame3 {
+    background-color: rgb(95, 96, 96);
+}
+
+.frame4 {
+    background-color: rgb(95, 96, 96);
+    width: 150vh;
+    height: 6vh;
+
+}
+
+.frame5 {
+    background-color: rgb(95, 96, 96);
+    width: 100%;
+    height: 22%;
+
 }
 
 .title{
@@ -90,4 +113,102 @@ a{
     height: 1vh;
     margin-bottom: 10px;
 
+}
+
+.table-overflow {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.table1 {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.style-table {
+    display: block;
+    border-bottom: 0px;
+}
+
+.count {
+    font-family: sans-serif;
+    text-align: center;
+
+}
+
+.EmpF {
+    background-color: rgb(244, 143, 229);
+    height: 80vh;
+}
+
+.f1 {
+    background-color: rgb(249, 249, 249);
+    height: 76vh;
+
+}
+
+.f2 {
+    background-color: rgb(249, 249, 249);
+    margin:auto;
+    width: 160vh;
+    height: 55vh;
+}
+
+.cter {
+    margin-right: 80%;
+}
+
+.text-count{
+    width: 50px;
+}
+
+.center1{
+    margin: auto;
+}
+
+.tick{
+    background-color: #fb7979;
+    width: 200vh;
+    height: 1vh;
+    margin-bottom: 10px;
+
+}
+
+.f4 {
+    background-color: rgb(249, 249, 249);
+    margin:auto;
+    width: 150vh;
+    height: 25vh;
+}
+
+.f5 {
+    background-color: rgb(249, 249, 249);
+    margin-left: 8%;
+    width: 100%;
+    height: 100%;
+}
+
+.buton{
+    margin-top: 3%;
+    
+}
+
+.form-text{
+    resize: none;
+    width: 100%;
+    height: 60%;
+}
+
+.text-tr{
+   margin: auto;
+}
+
+.pix{
+    height: auto;
+    width: 60%;
+    
+}
+
+.text-bank{
+    margin-left: 20%;
 }

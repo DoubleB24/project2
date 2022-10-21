@@ -61,7 +61,7 @@ export default function Users(){
                 
                 
                     <div className="col-2 ">
-                            <Link to={"/FormUsers/add"} className="btn btn-success ms-0">{<i className="fa-solid fa-plus me-2"></i>}+ เพิ่มข้อมูล</Link>
+                            <Link to={"/FormUsers/add"} className="btn btn-success ms-0">+ เพิ่มข้อมูล</Link>
                     </div>
 
                         <div className="row mt-3 frame">

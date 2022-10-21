@@ -21,7 +21,7 @@ export default function ProductOwner (){
                             <h1><center>จัดการสินค้า</center></h1><br></br>
                     
                         <div className="col-3">
-                             <Link to={"/product/add"} className="btn btn-success ms-3">{<i className="fa-solid fa-plus me-2"></i>}+ เพิ่มสินค้า</Link>      
+                             <Link to={"/product/add"} className="btn btn-success ms-3">+ เพิ่มสินค้า</Link>      
                              <Link to={"/Owner"} className="btn btn-outline-primary mx-3">รายงาน</Link> 
                             
                            

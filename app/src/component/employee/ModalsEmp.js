@@ -21,3 +21,24 @@ export function ConfirmOder (props) {
     )
 
 };
+
+export function ShowHistory (props) {
+    // let navigate = useNavigate();
+    return(
+        <Modal show={props.show} onHide={props.onHide}>
+            <Modal.Header closeButton>
+                <Modal.Title>{props.title}</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>{props.message}</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button  variant="primary" onClick={props.onHide}>ตกลง</Button>
+
+            </Modal.Footer>
+        </Modal>
+    )
+
+};

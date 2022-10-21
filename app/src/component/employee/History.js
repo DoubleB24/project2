@@ -16,7 +16,7 @@ export default function History() {
                         <Employeenav pages={pages} />
                     </div>
 
-                    <div className="col-lg-10 p-0 title  "><br></br>
+                    <div className="col-lg-10 p-0 title content"><br></br>
                         <div className="">
                             <h1><center>ประวัติคำสั่งซื้อ</center></h1><br></br>
                         </div>

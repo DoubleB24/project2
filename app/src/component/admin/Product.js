@@ -20,7 +20,7 @@ export default function Product (){
                             <h1><center>ประเภทสินค้า</center></h1><br></br>
                     
                         <div className="col-2">
-                             <Link to={"/product_type/add"} className="btn btn-success ms-3">{<i className="fa-solid fa-plus me-2"></i>}+ เพิ่มข้อมูล</Link>
+                             <Link to={"/product_type/add"} className="btn btn-success ms-3">+ เพิ่มข้อมูล</Link>
                         </div>
                         <div className="col-10"></div>
 

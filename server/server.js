@@ -23,6 +23,8 @@ app.use('/images', express.static('images'));
 var mysql = require('mysql');
 const { response } = require('express');
 
+
+
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: "localhost",
@@ -619,7 +621,10 @@ app.post('/api/order/createorder',async(req,res) =>{
         var result = await Order.createOrder(pool,
             input.user_id,
             input.amount,
-            input.total);
+            input.total,
+            input.vat,
+            input.net,
+            input.address);
         res.json({
             result : true,
             order_id: result.insertId
@@ -721,6 +726,75 @@ app.post('/api/order/decreasorder',async(req,res) =>{
             message: ex.message
         });
     }
+
+});
+
+app.get('/api/order/getallorder',(req,res) => {
+    pool.query("SELECT a.order_id, b.user_name, a.order_date, a.net, a.status FROM orders a JOIN users b ON a.user_id = b.user_id WHERE a.status ='รออนุมัติ'", function(error, results, fields){
+        if (error) {
+            res.json({
+                result: false,
+                message: error.message
+            });
+        }else{
+            res.json({
+                result: true,
+                data: results
+            });
+        }
+
+    });
+});
+
+
+app.post('/api/order/confirmorder',(req,res) => {
+    pool.query("UPDATE orders SET status='อนุมัติ' WHERE order_id = ?", [req.body.order_id], function(error, results, fields){
+        if (error) {
+            res.json({
+                result: false,
+                message: error.message
+            });
+        }else{
+            res.json({
+                result: true,
+            });
+        }
+
+    });
+});
+
+app.post('/api/order/cancelorder',(req,res) => {
+    pool.query("UPDATE orders SET status='ไม่อนุมัติ' WHERE order_id = ?", [req.body.order_id], function(error, results, fields){
+        if (error) {
+            res.json({
+                result: false,
+                message: error.message
+            });
+        }else{
+            res.json({
+                result: true,
+            });
+        }
+
+    });
+});
+
+
+//img
+app.post("/api/order/upload/:order_id", async(req,res) =>{
+
+    var order_id = req.params.order_id;
+    var name_img;
+
+    var storage = multer.diskStorage({
+        destination: (req,file, cp) =>{
+            cp(null,"images");
+        },
+        name_img: (req, file, cp) =>{
+            name_img = order_id + "-" + file.originalname;
+            cp(null,name_img);
+        }
+    });
 
 });
 

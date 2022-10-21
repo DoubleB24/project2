@@ -15,7 +15,7 @@ export default function Employee() {
                         <Employeenav pages={pages} />
                     </div>
 
-                    <div className="col-lg-10 p-0 title "><br></br>
+                    <div className="col-lg-10 p-0 title content "><br></br>
                         <div className="">
                             <h1><center>แดชบอร์ด</center></h1><br></br>
                         </div>
@@ -24,8 +24,8 @@ export default function Employee() {
                         <div className=" ms-3 me-3 p-3 EmpF">
                             <div className="row">
                                 <div className="col-6 ms-3 f1 ">
-                                    <div className="mt-4 ps-4 ms-5 center1">
-                                        <img src={`http://localhost:8080/images/waffle.jpg`} style={{ width: "450px", height: "510px" }} />
+                                    <div className="mt-3 ps-4 ms-4 center1">
+                                        <img src={`http://localhost:8080/images/waffle.jpg`} style={{ width: "450px", height: "480px" }} />
                                     </div>
 
                                 </div>

@@ -97,12 +97,12 @@ a {
 
 .table-overflow {
     height: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 .table1 {
     height: 400px;
-    overflow: auto;
+    overflow-y: scroll;
 }
 
 .style-table {
@@ -191,4 +191,10 @@ a {
 
 .text-bank{
     margin-left: 20%;
+}
+
+.icon{
+    height: auto;
+    width: 10%;
+    
 }

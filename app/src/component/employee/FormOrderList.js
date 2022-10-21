@@ -21,9 +21,14 @@ export default function FormOrderList() {
     const [modalConfirmTitle, setModalConfirmTitle] = useState("");
     const [modalConfirmMessage, setModalConfirmMessage] = useState("");
 
+    const [validated, setValidated] = useState(false);
+
     const [user_id, setUser_id] = useState(0);
     const [amount, setAmount] = useState(0);
+    const [vat, setVat] = useState(0);
+    const [total, setTotal] = useState(0);
     const [order_id, setOrder_id] = useState(0);
+    const [address, setAddress] = useState("");
 
 
 
@@ -35,8 +40,15 @@ export default function FormOrderList() {
     useEffect(() => {
         async function fetchData() {
 
+
+
             IntNet = parseInt(localStorage.getItem("calNet"));
             IntAmount = parseInt(localStorage.getItem("calAmount"));
+            let calvat = IntNet * (5 / 100);
+
+            setVat(IntNet * (5 / 100));
+            setTotal(IntNet + calvat);
+
 
             setListbasket(JSON.parse(localStorage.getItem('basket')));
             setNet(IntNet);
@@ -52,14 +64,21 @@ export default function FormOrderList() {
     }, []);
 
 
-    const onconfirmorder = async () => {
-        onsaveOrder();
-        localStorage.removeItem('basket');
-        localStorage.removeItem('calAmount');
-        localStorage.removeItem('calNet');
-        setShowConfirmModal(true);
-        setModalConfirmTitle("สั่งซื้อสินค้าสำเร็จ");
-        setModalConfirmMessage("โปรดรอรับการยืนยันจากทางร้าน");
+    const onconfirmorder = async (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+        if (form.checkValidity() === false) {
+            event.stopPropagation();
+        } else {
+            onsaveOrder();
+            localStorage.removeItem('basket');
+            localStorage.removeItem('calAmount');
+            localStorage.removeItem('calNet');
+            setShowConfirmModal(true);
+            setModalConfirmTitle("สั่งซื้อสินค้าสำเร็จ");
+            setModalConfirmMessage("โปรดรอรับการยืนยันจากทางร้าน");
+        }
+        setValidated(true);
 
     }
 
@@ -72,7 +91,10 @@ export default function FormOrderList() {
         let json = await API_POST("order/createorder", {
             user_id: user_id,
             amount: amount,
-            total: net + 100
+            total: net,
+            vat: vat,
+            net: net + 100,
+            address: address
         });
         if (json.result) {
             let res = await API_GET("order/maxorderid");
@@ -105,6 +127,7 @@ export default function FormOrderList() {
             }
 
         }
+
     }
 
     return (
@@ -161,66 +184,91 @@ export default function FormOrderList() {
                                     </tbody>
                                 </Table>
                             </div>
+                            <Form className='container' noValidate validated={validated} onSubmit={onconfirmorder}>
 
-                            <div>
-                                <div className='mt-3 f4 text-center'>
+                                <div>
+                                    <div className='mt-3 f4 text-center'>
+                                        <h5 className="frame4 text-white">ที่อยู่การจัดส่ง</h5>
+                                        {/* <Form.Group controlId="validateaddress">
+                                            <Form.Control className="form-text my-3"
+                                                as="textarea" value={address} onChange={(e) => setAddress(e.target.value)} required />
+                                            <Form.Control.Feedback type="invalid">
+                                                กรุณากรอกที่อยู่สำหรับจัดส่ง
+                                            </Form.Control.Feedback>
+                                        </Form.Group> */}
 
-                                    <h5 className="frame4 text-white">ที่อยู่การจัดส่ง</h5>
-                                    <Form.Control className="form-text my-3"
-                                        as="textarea" />
+                                        <Form.Group as={Col} controlId='validateaddress'>
+
+                                            <Form.Control className="form-text my-3"
+                                                required
+                                                as="textarea"
+                                                type='text'
+                                                value={address}
+                                                onChange={(e) => setAddress(e.target.value)}
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                            กรุณากรอกที่อยู่สำหรับจัดส่ง
+                                            </Form.Control.Feedback>
+                                        </Form.Group>
+
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="row m-auto">
-                                <div className="col-5 ">
-                                    <div className='mt-3  f5 text-center'>
-                                        <h5 className="frame5 text-white">ช่องทางการชำระเงิน</h5>
-                                        <div className="row p-2">
-                                            <div className="col-5 text-end">
-                                                <img src={`http://localhost:8080/images/krungthai.jpg`} alt="" className="pix" />
+                                <div className="row m-auto">
+                                    <div className="col-5 ">
+                                        <div className='mt-3  f5 text-center'>
+                                            <h5 className="frame5 text-white">ช่องทางการชำระเงิน</h5>
+                                            <div className="row p-2">
+                                                <div className="col-5 text-end">
+                                                    <img src={`http://localhost:8080/images/krungthai.jpg`} alt="" className="pix" />
+                                                </div>
+
+
+                                                <div className="col-7 text-center">
+                                                    <h6>ธนาคารกรุงไทย</h6>
+                                                    <h6>เลขที่บัญชี 9300317156</h6>
+                                                    <h6>ชื่อบัญชี ศศินา  วรเดช</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="ms-5 col-6 ">
+                                        <div className='mt-3 f5 '>
+                                            <h5 className="frame5 text-white text-center">สรุปรายการ</h5>
+                                            <div className="row">
+                                                <p className="col-8 text-end">ยอดรวมทั้งหมด  :</p>
+                                                <p className="col-4">{net}</p>
+                                            </div>
+                                            <div className="row">
+                                                <p className="col-8 text-end">ค่าบริการ 5%  :</p>
+                                                <p className="col-4">{vat}</p>
                                             </div>
 
+                                            <div className="row">
+                                                <p className="col-8 text-end">ค่าจัดส่ง  :</p>
+                                                <p className="col-4">100</p>
+                                            </div>
 
-                                            <div className="col-7 text-center">
-                                                <h6>ธนาคารกรุงไทย</h6>
-                                                <h6>เลขที่บัญชี 9300317156</h6>
-                                                <h6>ชื่อบัญชี ศศินา  วรเดช</h6>
+                                            <div className="row ">
+                                                <p className="col-8 text-end">ราคารวมสินค้าทั้งหมด  :</p>
+                                                <p className="col-4">{total + 100}</p>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="ms-5 col-6 ">
-                                    <div className='mt-3 f5 '>
-                                        <h5 className="frame5 text-white text-center">สรุปรายการ</h5>
-                                        <div className="row">
-                                            <p className="col-8 text-end">ยอดรวมทั้งหมด  :</p>
-                                            <p className="col-4">{net}</p>
-                                        </div>
-
-                                        <div className="row">
-                                            <p className="col-8 text-end">ค่าจัดส่ง  :</p>
-                                            <p className="col-4">100</p>
-                                        </div>
-
-                                        <div className="row ">
-                                            <p className="col-8 text-end">ราคารวมสินค้าทั้งหมด  :</p>
-                                            <p className="col-4">{net + 100}</p>
-                                        </div>
-
-
-
-                                    </div>
+                                <div className="text-center ">
+                                    <Button variant="success" className="col-12 my-5" size="lg" type="submit">ชำระเงิน</Button>
                                 </div>
-
-                            </div>
-
+                            </Form>
 
                         </div>
 
-                        <div className="text-center ">
-                            <Button variant="success" className="col-12 my-5" size="lg" onClick={onconfirmorder}>ชำระเงิน</Button>
-                        </div>
+
+
+
                         <ConfirmOder
                             show={showConfirmModal}
                             title={modalConfirmTitle}
